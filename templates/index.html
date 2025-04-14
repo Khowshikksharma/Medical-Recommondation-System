@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Care Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../static/img.png" type="image/x-icon">
+  </head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div class="container-fluid">
+            <div style="width: 50px; height: 50px; margin-top: 0; margin-left: 2px; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="Logo" style="width: 40px; height: 40px; border: 2px solid white; border-radius: 50%;">
+            </div>
+            <a class="navbar-brand" href="#" style="font-weight: 600; font-size: 1.5rem; margin-left: 10px;">HealthCare AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-info-circle me-1"></i> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-phone-alt me-1"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/developer" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-code me-1"></i> Developer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-blog me-1"></i> Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div style="background: linear-gradient(rgba(26, 111, 201, 0.9), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; padding: 80px 0; text-align: center;">
+        <h1 style="font-weight: 700; font-size: 3rem; margin-bottom: 20px;">AI-Powered Health Diagnosis</h1>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px;">Get instant preliminary health assessments based on your symptoms from our advanced AI system.</p>
+    </div>
+
+    <!-- Diagnosis Form -->
+    <div id="diagnosis-section" class="container my-5" style="max-width: 800px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 40px; margin-top: -50px; position: relative; z-index: 1;">
+        <h2 class="text-center mb-4" style="color: #1a6fc9; font-weight: 700;">Symptom Checker</h2>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="symptoms" style="font-weight: 600; color: #333;">Describe Your Symptoms:</label>
+                <input type="text" class="form-control mt-2" id="symptoms" name="symptoms" placeholder="e.g. headache, fever, cough..." style="padding: 15px; border-radius: 10px; border: 1px solid #ddd;">
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <button type="button" id="startSpeechRecognition" class="btn btn-primary" style="border-radius: 30px; padding: 10px 25px; background: #1a6fc9; border: none;">
+                    <i class="fas fa-microphone me-2"></i> Voice Input
+                </button>
+                <button type="submit" class="btn btn-danger" style="border-radius: 30px; padding: 12px 30px; font-weight: 600; background: linear-gradient(135deg, #ff6b6b, #ff4757); border: none;">
+                    Analyze Symptoms <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+            <div id="transcription" class="mt-3 p-3" style="background: #f8f9fa; border-radius: 10px; min-height: 50px;"></div>
+            {% if message %}
+            <div class="alert alert-warning mt-3" style="border-radius: 10px;">{{ message }}</div>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if predicted_disease %}
+    <!-- Results Section -->
+    <div class="container my-5" style="max-width: 1000px;">
+        <h2 class="text-center mb-5" style="color: #1a6fc9; font-weight: 700;">Diagnosis Results</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-header" style="background: #1a6fc9; color: white; border-radius: 15px 15px 0 0 !important; font-weight: 600;">
+                        <i class="fas fa-disease me-2"></i> Predicted Condition
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #333;">{{ predicted_disease }}</h5>
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#diseaseModal" style="border-radius: 20px;">
+                            View Details <i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-header" style="background: #268AF3; color: white; border-radius: 15px 15px 0 0 !important; font-weight: 600;">
+                        <i class="fas fa-info-circle me-2"></i> Description
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" style="color: #555;">{{ dis_des[:150] }}...</p>
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#descriptionModal" style="border-radius: 20px;">
+                            Read More <i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-header" style="background: #F39334; color: white; border-radius: 15px 15px 0 0 !important; font-weight: 600;">
+                        <i class="fas fa-shield-alt me-2"></i> Precautions
+                    </div>
+                    <div class="card-body">
+                        <ul style="padding-left: 20px; color: #555;">
+                            {% for i in my_precautions[:3] %}
+                                <li>{{ i }}</li>
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#precautionModal" style="border-radius: 20px;">
+                            View All <i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-header" style="background: #F8576F; color: white; border-radius: 15px 15px 0 0 !important; font-weight: 600;">
+                        <i class="fas fa-pills me-2"></i> Medications
+                    </div>
+                    <div class="card-body">
+                        <ul style="padding-left: 20px; color: #555;">
+                            {% for i in medications %}
+                                {% set cleaned = i[2:-2] %}
+                                {% for item in cleaned.split(",")[:2] %}
+                                    <li>{{ item.strip(" '\"") }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#medicationsModal" style="border-radius: 20px;">
+                            View All <i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-header" style="background: #99F741; color: #333; border-radius: 15px 15px 0 0 !important; font-weight: 600;">
+                        <i class="fas fa-running me-2"></i> Recommended Exercises
+                    </div>
+                    <div class="card-body">
+                        <ul style="padding-left: 20px; color: #555;">
+                            {% for i in workout[:3] %}
+                                <li>{{ i }}</li>
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#workoutsModal" style="border-radius: 20px;">
+                            View All <i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-header" style="background: #E5E23D; color: #333; border-radius: 15px 15px 0 0 !important; font-weight: 600;">
+                        <i class="fas fa-utensils me-2"></i> Dietary Recommendations
+                    </div>
+                    <div class="card-body">
+                        <ul style="padding-left: 20px; color: #555;">
+                            {% for i in my_diet %}
+                                {% set cleaned = i[2:-2] %}
+                                {% for item in cleaned.split(",")[:2] %}
+                                    <li>{{ item.strip(" '\"") }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#dietsModal" style="border-radius: 20px;">
+                            View All <i class="fas fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); color: white; padding: 40px 0; margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">HealthCare AI</h5>
+                    <p>Empowering individuals with AI-driven health insights for better decision making and improved wellbeing.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Quick Links</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="/about" style="color: white; text-decoration: none;">About Us</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/blog" style="color: white; text-decoration: none;">Blog</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/contact" style="color: white; text-decoration: none;">Contact</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/developer" style="color: white; text-decoration: none;">Developer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Contact Info</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Near KL University, Vaddeswaram, Guntur - 522302</p>
+                    <p><i class="fas fa-phone-alt me-2"></i> +91 6309876645</p>
+                    <p><i class="fas fa-envelope me-2"></i> sripadakhowshikksharma126@gmail.com</p>
+                </div>
+            </div>
+            <hr style="background-color: rgba(255,255,255,0.1); margin: 10px 0;">
+            <div class="text-center" style="font-size: 0.9rem;">
+                <p>© 2023 HealthCare AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals (same as before, but with updated styling) -->
+    <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="background: #1a6fc9; color: white;">
+                    <h5 class="modal-title" id="diseaseModalLabel"><i class="fas fa-disease me-2"></i> Predicted Condition</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <h4 style="color: #1a6fc9; margin-bottom: 15px;">{{ predicted_disease }}</h4>
+                    <p>This is the condition our AI system has predicted based on your reported symptoms. Please consult with a healthcare professional for proper diagnosis and treatment.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 20px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="background: #268AF3; color: white;">
+                    <h5 class="modal-title" id="descriptionModalLabel"><i class="fas fa-info-circle me-2"></i> Condition Description</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <h4 style="color: #268AF3; margin-bottom: 15px;">{{ predicted_disease }}</h4>
+                    <div style="line-height: 1.6; color: #555;">{{ dis_des }}</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 20px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Precaution Modal -->
+    <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="background: #F39334; color: white;">
+                    <h5 class="modal-title" id="precautionModalLabel"><i class="fas fa-shield-alt me-2"></i> Recommended Precautions</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <h4 style="color: #F39334; margin-bottom: 15px;">{{ predicted_disease }}</h4>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        {% for i in my_precautions %}
+                            <li style="margin-bottom: 10px;">{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 20px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medications Modal -->
+    <div class="modal fade" id="medicationsModal" tabindex="-1" aria-labelledby="medicationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="background: #F8576F; color: white;">
+                    <h5 class="modal-title" id="medicationsModalLabel"><i class="fas fa-pills me-2"></i> Suggested Medications</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <h4 style="color: #F8576F; margin-bottom: 15px;">{{ predicted_disease }}</h4>
+                    <div class="alert alert-warning" style="border-radius: 10px; margin-bottom: 20px;">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Always consult with a doctor before taking any medications.
+                    </div>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        {% for i in medications %}
+                            {% set cleaned = i[2:-2] %}
+                            {% for item in cleaned.split(",") %}
+                                <li style="margin-bottom: 10px;">{{ item.strip(" '\"") }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 20px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workouts Modal -->
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="background: #99F741; color: #333;">
+                    <h5 class="modal-title" id="workoutsModalLabel"><i class="fas fa-running me-2"></i> Recommended Exercises</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <h4 style="color: #99F741; margin-bottom: 15px;">{{ predicted_disease }}</h4>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        {% for i in workout %}
+                            <li style="margin-bottom: 10px;">{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 20px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diets Modal -->
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="background: #E5E23D; color: #333;">
+                    <h5 class="modal-title" id="dietsModalLabel"><i class="fas fa-utensils me-2"></i> Dietary Recommendations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <h4 style="color: #E5E23D; margin-bottom: 15px;">{{ predicted_disease }}</h4>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        {% for i in my_diet %}
+                            {% set cleaned = i[2:-2] %}
+                            {% for item in cleaned.split(",") %}
+                                <li style="margin-bottom: 10px;">{{ item.strip(" '\"") }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 30px; padding: 8px 20px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const startSpeechRecognitionButton = document.getElementById('startSpeechRecognition');
+        const transcriptionDiv = document.getElementById('transcription');
+
+        startSpeechRecognitionButton.addEventListener('click', startSpeechRecognition);
+
+        function startSpeechRecognition() {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function (event) {
+                const result = event.results[0][0].transcript;
+                transcriptionDiv.innerHTML = `<div class="alert alert-info" style="border-radius: 10px;"><i class="fas fa-microphone me-2"></i> <strong>You said:</strong> ${result}</div>`;
+                document.getElementById('symptoms').value = result;
+            };
+
+            recognition.onerror = function(event) {
+                transcriptionDiv.innerHTML = `<div class="alert alert-danger" style="border-radius: 10px;"><i class="fas fa-exclamation-triangle me-2"></i> Error occurred in recognition: ${event.error}</div>`;
+            };
+
+            recognition.start();
+            transcriptionDiv.innerHTML = `<div class="alert alert-warning" style="border-radius: 10px;"><i class="fas fa-microphone me-2"></i> Listening... Please speak now.</div>`;
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

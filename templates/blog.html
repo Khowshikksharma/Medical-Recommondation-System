@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog - HealthCare AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../static/img.png" type="image/x-icon">
+  </head>
+  <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div class="container-fluid">
+            <div style="width: 50px; height: 50px; margin-top: 0; margin-left: 2px; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="Logo" style="width: 40px; height: 40px; border: 2px solid white; border-radius: 50%;">
+            </div>
+            <a class="navbar-brand" href="/" style="font-weight: 600; font-size: 1.5rem; margin-left: 10px;">HealthCare AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-info-circle me-1"></i> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-phone-alt me-1"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/developer" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-code me-1"></i> Developer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/blog" style="font-weight: 500; padding: 8px 15px; border-radius: 5px; background-color: rgba(255,255,255,0.2);"><i class="fas fa-blog me-1"></i> Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div style="background: linear-gradient(rgba(26, 111, 201, 0.9), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; padding: 100px 0; text-align: center;">
+        <h1 style="font-weight: 700; font-size: 3rem; margin-bottom: 20px;">HealthCare AI Blog</h1>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Insights, updates, and technical deep dives into our AI-powered healthcare platform</p>
+    </div>
+
+    <!-- Blog Content -->
+    <div class="container my-5" style="max-width: 1300px;">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Featured Article -->
+                <div class="card mb-4" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <img src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" style="border-radius: 15px 15px 0 0; height: 400px; object-fit: cover;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2" style="border-radius: 20px; padding: 5px 12px;">Tested</span>
+                        </div>
+                        <h2 style="color: #1a6fc9; font-weight: 700; margin-bottom: 15px;">The Technology Behind HealthCare AI</h2>
+                        <p style="line-height: 1.7; color: #555; margin-bottom: 20px;">A comprehensive look at the machine learning models, system architecture, and cloud-native MLOps pipeline that powers our symptom checker and medical recommendation system.</p>
+
+                        <h3 id="systemarchitecture" style="color: #1a6fc9; font-weight: 600; margin-top: 30px; margin-bottom: 15px;">System Architecture Overview</h3>
+                        <p style="line-height: 1.7; color: #555;">Our system follows a modular cloud-native architecture designed for scalability and reliability:</p>
+                        <div class="text-center my-4">
+                            <img src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBDbGllbnQoQnJvd3NlcikgLS0-IEZsYXNrV2ViU2VydmVyXG4gICAgRmxhc2tXZWJTZXJ2ZXIgLS0-IE1hY2hpbmVMZWFybmluZ01vZGVsXG4gICAgTWFjaGluZUxlYXJuaW5nTW9kZWwgLS0-IFJlY29tbWVuZGF0aW9uRW5naW5lXG4gICAgUmVjb21tZW5kYXRpb25FbmdpbmUgLS0-IERhdGFiYXNlKENTViBmaWxlcykiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" alt="System Architecture Diagram" style="max-width: 100%; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                            <p class="text-muted mt-2">High-level system architecture diagram</p>
+                        </div>
+
+                        <h3 style="color: #1a6fc9; font-weight: 600; margin-top: 30px; margin-bottom: 15px;">Machine Learning Model Details</h3>
+                        <p style="line-height: 1.7; color: #555;">At the core of our system is a Support Vector Classifier (SVC) model trained on comprehensive medical datasets:</p>
+
+                        <div class="card mb-4" style="border: none; border-radius: 10px; background-color: #f0f7ff; box-shadow: none;">
+                            <div class="card-body">
+                                <h5 style="color: #1a6fc9; font-weight: 600;">Model Specifications</h5>
+                                <ul style="color: #555;">
+                                    <li><strong>Algorithm:</strong> Support Vector Classifier (SVC)</li>
+                                    <li><strong>Accuracy:</strong> 100% on test data (potential overfitting addressed)</li>
+                                    <li><strong>Input:</strong> Vectorized symptom descriptions</li>
+                                    <li><strong>Output:</strong> Disease prediction with confidence score</li>
+                                    <li><strong>Training Data:</strong> 5,000+ symptom-disease mappings</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h4 id="modeltrainingprocess" style="color: #1a6fc9; font-weight: 600; margin-top: 25px; margin-bottom: 15px;">Model Training Process</h4>
+                        <p style="line-height: 1.7; color: #555;">Our model was trained using the following workflow:</p>
+                        <ol style="color: #555; line-height: 1.7; padding-left: 20px;">
+                            <li><strong>Data Collection:</strong> Aggregated from multiple medical sources and standardized</li>
+                            <li><strong>Feature Engineering:</strong> Symptoms converted to TF-IDF vectors</li>
+                            <li><strong>Model Selection:</strong> Evaluated multiple algorithms (SVC, Random Forest, Logistic Regression)</li>
+                            <li><strong>Hyperparameter Tuning:</strong> Grid search for optimal parameters</li>
+                            <li><strong>Validation:</strong> 70-30 train-test split with cross-validation</li>
+                        </ol>
+
+                        <h4 style="color: #1a6fc9; font-weight: 600; margin-top: 25px; margin-bottom: 15px;">Addressing Overfitting</h4>
+                        <p style="line-height: 1.7; color: #555;">Initial tests showed 100% accuracy, indicating potential overfitting. We implemented several solutions:</p>
+                        <ul style="color: #555; line-height: 1.7; padding-left: 20px;">
+                            <li>Added synthetic noise to test robustness</li>
+                            <li>Implemented cross-validation with different random splits</li>
+                            <li>Added confidence thresholds to filter uncertain predictions</li>
+                            <li>Regular monitoring for data drift in production</li>
+                        </ul>
+
+                        <h3 id="mlopspipelines" style="color: #1a6fc9; font-weight: 600; margin-top: 30px; margin-bottom: 15px;">Cloud-Native MLOps Pipeline</h3>
+                        <p style="line-height: 1.7; color: #555;">We've built a robust MLOps pipeline to ensure reliable model performance:</p>
+
+                        <div class="card mb-4" style="border: none; border-radius: 10px; background-color: #f0f7ff; box-shadow: none;">
+                            <div class="card-body">
+                                <h5 style="color: #1a6fc9; font-weight: 600;">MLOps Implementation</h5>
+                                <table class="table" style="color: #555;">
+                                    <thead>
+                                        <tr>
+                                            <th>MLOps Requirement</th>
+                                            <th>Our Implementation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Model Training & Deployment</td>
+                                            <td>AWS SageMaker for cloud training</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CI/CD for ML Models</td>
+                                            <td>GitHub Actions automates deployment</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Real-Time Monitoring</td>
+                                            <td>AWS Model Monitor + Prometheus</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Automated Retraining</td>
+                                            <td>AWS Lambda triggers on new data</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Scalability</td>
+                                            <td>Auto-scaling with AWS ECS</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h4 id="keycomponents" style="color: #1a6fc9; font-weight: 600; margin-top: 25px; margin-bottom: 15px;">Key Components</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100" style="border: none; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                                    <div class="card-body">
+                                        <div style="width: 50px; height: 50px; background: #1a6fc9; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                            <i class="fas fa-robot fa-lg" style="color: white;"></i>
+                                        </div>
+                                        <h6 style="color: #1a6fc9; font-weight: 600;">Model Serving</h6>
+                                        <p style="color: #555; font-size: 0.9rem;">Flask API endpoints with load balancing for high availability prediction services</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100" style="border: none; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                                    <div class="card-body">
+                                        <div style="width: 50px; height: 50px; background: #1a6fc9; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                            <i class="fas fa-chart-line fa-lg" style="color: white;"></i>
+                                        </div>
+                                        <h6 style="color: #1a6fc9; font-weight: 600;">Performance Monitoring</h6>
+                                        <p style="color: #555; font-size: 0.9rem;">Real-time tracking of prediction accuracy, response times, and feature drift</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100" style="border: none; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                                    <div class="card-body">
+                                        <div style="width: 50px; height: 50px; background: #1a6fc9; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                            <i class="fas fa-sync-alt fa-lg" style="color: white;"></i>
+                                        </div>
+                                        <h6 style="color: #1a6fc9; font-weight: 600;">Automated Retraining</h6>
+                                        <p style="color: #555; font-size: 0.9rem;">Scheduled and event-driven model updates with canary deployments</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100" style="border: none; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                                    <div class="card-body">
+                                        <div style="width: 50px; height: 50px; background: #1a6fc9; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                            <i class="fas fa-shield-alt fa-lg" style="color: white;"></i>
+                                        </div>
+                                        <h6 style="color: #1a6fc9; font-weight: 600;">Security</h6>
+                                        <p style="color: #555; font-size: 0.9rem;">End-to-end encryption and HIPAA-compliant data handling</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="color: #1a6fc9; font-weight: 600; margin-top: 30px; margin-bottom: 15px;">Recommendation Engine</h3>
+                        <p style="line-height: 1.7; color: #555;">After disease prediction, our system generates comprehensive recommendations:</p>
+                        <ul style="color: #555; line-height: 1.7; padding-left: 20px;">
+                            <li><strong>Medical Descriptions:</strong> Detailed explanations from verified sources</li>
+                            <li><strong>Precautions:</strong> 4-6 specific preventive measures</li>
+                            <li><strong>Medications:</strong> Common treatments (with doctor consultation disclaimer)</li>
+                            <li><strong>Dietary Advice:</strong> Nutrition-focused recommendations</li>
+                            <li><strong>Exercise Plans:</strong> Tailored physical activity suggestions</li>
+                        </ul>
+
+                        <h3 id="futureenhancements" style="color: #1a6fc9; font-weight: 600; margin-top: 30px; margin-bottom: 15px;">Future Enhancements</h3>
+                        <p style="line-height: 1.7; color: #555;">We're continuously improving the system with:</p>
+                        <ul style="color: #555; line-height: 1.7; padding-left: 20px;">
+                            <li>Integration with wearable device data</li>
+                            <li>Multi-language support for global accessibility</li>
+                            <li>Federated learning for privacy-preserving model updates</li>
+                            <li>Edge AI deployment for offline functionality</li>
+                            <li>Telemedicine provider integration</li>
+                        </ul>
+
+                        <div class="alert alert-info mt-4" style="border-radius: 10px;">
+                            <i class="fas fa-info-circle me-2"></i> <strong>Disclaimer:</strong> HealthCare AI provides preliminary health information only and is not a substitute for professional medical advice.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card mb-4" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body">
+                        <h5 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px;">About HealthCare AI</h5>
+                        <p style="color: #555; font-size: 0.9rem;">HealthCare AI is an advanced medical recommendation system that uses artificial intelligence to provide preliminary health assessments based on reported symptoms.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body">
+                        <h5 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px;">Categories</h5>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="margin-bottom: 10px;"><a href="/blog#systemarchitecture" style="color: #555; text-decoration: none;"><i class="fas fa-chevron-right me-2" style="color: #1a6fc9;"></i> Technology Architecture</a></li>
+                            <li style="margin-bottom: 10px;"><a href="/blog#modeltrainingprocess" style="color: #555; text-decoration: none;"><i class="fas fa-chevron-right me-2" style="color: #1a6fc9;"></i> Machine Learning Model</a></li>
+                            <li style="margin-bottom: 10px;"><a href="/blog#mlopspipelines" style="color: #555; text-decoration: none;"><i class="fas fa-chevron-right me-2" style="color: #1a6fc9;"></i> CL MLOps Pipeline</a></li>
+                            <li style="margin-bottom: 10px;"><a href="/blog#keycomponents" style="color: #555; text-decoration: none;"><i class="fas fa-chevron-right me-2" style="color: #1a6fc9;"></i> Key Components</a></li>
+                            <li style="margin-bottom: 10px;"><a href="/blog#futureenhancements" style="color: #555; text-decoration: none;"><i class="fas fa-chevron-right me-2" style="color: #1a6fc9;"></i> Future Enhancements</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-4" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body">
+                        <h5 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px;">Popular Tags</h5>
+                        <div class="d-flex flex-wrap">
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">Healthcare</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">MLOps</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">SVC</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">Cloud</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">AI</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">Diagnosis</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">Prevention</p>
+                            <p class="btn btn-sm btn-outline-primary mb-2 me-2" style="border-radius: 20px;">Wellness</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); color: white; padding: 40px 0; margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">HealthCare AI</h5>
+                    <p>Empowering individuals with AI-driven health insights for better decision making and improved wellbeing.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Quick Links</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="/about" style="color: white; text-decoration: none;">About Us</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/blog" style="color: white; text-decoration: none;">Blog</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/contact" style="color: white; text-decoration: none;">Contact</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/developer" style="color: white; text-decoration: none;">Developer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Contact Info</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Near KL University, Vaddeswaram, Guntur - 522302</p>
+                    <p><i class="fas fa-phone-alt me-2"></i> +91 6309876645</p>
+                    <p><i class="fas fa-envelope me-2"></i> sripadakhowshikksharma126@gmail.com</p>
+                </div>
+            </div>
+            <hr style="background-color: rgba(255,255,255,0.1); margin: 10px 0;">
+            <div class="text-center" style="font-size: 0.9rem;">
+                <p>© 2023 HealthCare AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>

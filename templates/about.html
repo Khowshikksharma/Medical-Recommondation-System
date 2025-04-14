@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About Us - HealthCare AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../static/img.png" type="image/x-icon">
+  </head>
+  <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div class="container-fluid">
+            <div style="width: 50px; height: 50px; margin-top: 0; margin-left: 2px; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="Logo" style="width: 40px; height: 40px; border: 2px solid white; border-radius: 50%;">
+            </div>
+            <a class="navbar-brand" href="/" style="font-weight: 600; font-size: 1.5rem; margin-left: 10px;">HealthCare AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about" style="font-weight: 500; padding: 8px 15px; border-radius: 5px; background-color: rgba(255,255,255,0.2);"><i class="fas fa-info-circle me-1"></i> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-phone-alt me-1"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/developer" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-code me-1"></i> Developer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-blog me-1"></i> Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div style="background: linear-gradient(rgba(26, 111, 201, 0.9), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; padding: 100px 0; text-align: center;">
+        <h1 style="font-weight: 700; font-size: 3rem; margin-bottom: 20px;">About HealthCare AI</h1>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Empowering individuals with AI-driven health insights for better decision making.</p>
+    </div>
+
+    <!-- About Content -->
+    <div class="container my-5" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body p-5">
+                        <h3 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px;">Our Vision</h3>
+                        <p style="line-height: 1.8; color: #555; margin-bottom: 25px;">We envision a world where access to healthcare information is not just a luxury but a fundamental right. Our journey began with a simple yet powerful idea: to empower individuals with the knowledge and tools they need to take control of their health.</p>
+
+                        <h3 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px; margin-top: 30px;">Who We Are</h3>
+                        <p style="line-height: 1.8; color: #555; margin-bottom: 25px;">We are a passionate team of healthcare professionals, data scientists, and technology enthusiasts who share a common goal: to make healthcare accessible, understandable, and personalized for you. With years of experience in both healthcare and cutting-edge technology, we've come together to create this platform as a testament to our commitment to your well-being.</p>
+
+                        <h3 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px; margin-top: 30px;">Our Mission</h3>
+                        <p style="line-height: 1.8; color: #555; margin-bottom: 25px;">At HealthCare AI, our mission is to provide you with a seamless and intuitive platform that leverages the power of artificial intelligence and machine learning. We want to assist you in identifying potential health concerns based on your reported symptoms, all while offering a wealth of educational resources to enhance your health literacy.</p>
+
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                                    <div class="card-body text-center p-4">
+                                        <div style="width: 80px; height: 80px; background: #1a6fc9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                            <i class="fas fa-brain fa-2x" style="color: white;"></i>
+                                        </div>
+                                        <h5 style="color: #1a6fc9; font-weight: 600;">AI-Powered Diagnosis</h5>
+                                        <p style="color: #555;">Our advanced machine learning algorithms analyze symptoms to provide preliminary health assessments.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                                    <div class="card-body text-center p-4">
+                                        <div style="width: 80px; height: 80px; background: #1a6fc9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                            <i class="fas fa-user-md fa-2x" style="color: white;"></i>
+                                        </div>
+                                        <h5 style="color: #1a6fc9; font-weight: 600;">Medical Expertise</h5>
+                                        <p style="color: #555;">Our content is reviewed by medical professionals to ensure accuracy and reliability.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="container my-5" style="max-width: 1100px;">
+        <h2 class="text-center mb-5" style="color: #1a6fc9; font-weight: 700;">Our Team</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body text-center">
+                        <h5 style="color: #1a6fc9; font-weight: 600;">Khowshikk Sharma</h5>
+                        <p class="text-muted">(Team Leader)</p>
+                        <p style="color: #555;">Pursuing B.Tech in Computer Science and Engineering</p>
+                        <p style="color: #555;">Specialization: Software Modelling & DevOps</p>
+                        <p style="color: #555;">Graduating Year in 2026</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body text-center">
+                        <h5 style="color: #1a6fc9; font-weight: 600;">Sreehitha Sagar</h5>
+                        <p class="text-muted">(Team Member)</p>
+                        <p style="color: #555;">Pursuing B.Tech in Computer Science and Engineering</p>
+                        <p style="color: #555;">Specialization: Software Modelling & DevOps</p>
+                        <p style="color: #555;">Graduating Year in 2026</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body text-center">
+                        <h5 style="color: #1a6fc9; font-weight: 600;">Shriram</h5>
+                        <p class="text-muted">(Team Member) </p>
+                        <p style="color: #555;">Pursuing B.Tech in Computer Science and Engineering</p>
+                        <p style="color: #555;">Specialization: Software Modelling & DevOps</p>
+                        <p style="color: #555;">Graduating Year in 2026</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body text-center">
+                        <h5 style="color: #1a6fc9; font-weight: 600;">Raghu Ram</h5>
+                        <p class="text-muted"> (Team Member)</p>
+                        <p style="color: #555;">Pursuing B.Tech in Computer Science and Engineering</p>
+                        <p style="color: #555;">Specialization: Software Modelling & DevOps</p>
+                        <p style="color: #555;">Graduating Year in 2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); color: white; padding: 40px 0; margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">HealthCare AI</h5>
+                    <p>Empowering individuals with AI-driven health insights for better decision making and improved wellbeing.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Quick Links</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="/about" style="color: white; text-decoration: none;">About Us</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/blog" style="color: white; text-decoration: none;">Blog</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/contact" style="color: white; text-decoration: none;">Contact</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/developer" style="color: white; text-decoration: none;">Developer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Contact Info</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Near KL University, Vaddeswaram, Guntur - 522302</p>
+                    <p><i class="fas fa-phone-alt me-2"></i> +91 6309876645</p>
+                    <p><i class="fas fa-envelope me-2"></i> sripadakhowshikksharma126@gmail.com</p>
+                </div>
+            </div>
+            <hr style="background-color: rgba(255,255,255,0.1); margin: 10px 0;">
+            <div class="text-center" style="font-size: 0.9rem;">
+                <p>© 2023 HealthCare AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Developer - HealthCare AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../static/img.png" type="image/x-icon">
+  </head>
+  <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div class="container-fluid">
+            <div style="width: 50px; height: 50px; margin-top: 0; margin-left: 2px; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="Logo" style="width: 40px; height: 40px; border: 2px solid white; border-radius: 50%;">
+            </div>
+            <a class="navbar-brand" href="/" style="font-weight: 600; font-size: 1.5rem; margin-left: 10px;">HealthCare AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 20px;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-info-circle me-1"></i> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-phone-alt me-1"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/developer" style="font-weight: 500; padding: 8px 15px; border-radius: 5px; background-color: rgba(255,255,255,0.2);"><i class="fas fa-code me-1"></i> Developer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog" style="font-weight: 500; padding: 8px 15px; border-radius: 5px;"><i class="fas fa-blog me-1"></i> Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div style="background: linear-gradient(rgba(26, 111, 201, 0.9), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; padding: 100px 0; text-align: center;">
+        <h1 style="font-weight: 700; font-size: 3rem; margin-bottom: 20px;">Meet the Developer</h1>
+        <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">The mind behind HealthCare AI's advanced diagnostic system</p>
+    </div>
+
+    <!-- Developer Content -->
+    <div class="container my-5" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body text-center" style="padding: 2rem;">
+                        <div style="width: 150px; height: 150px; background-color: #f0f8ff; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user-tie" style="font-size: 3rem; color: #1a6fc9;"></i>
+                        </div>
+                        <h3 style="color: #1a6fc9; font-weight: 700; font-size: x-large">S. KHOWSHIKK SHARMA</h3>
+                        <p class="text-muted" style="font-size: small">SOFTWARE ENGINEERING STUDENT</p>
+
+                        <div class="developer-details mt-4 text-left" align="left" style="border-top: 1px solid #eee; font-size: small; padding-top: 1rem;">
+                            <p><strong>Age:</strong> 20</p>
+                            <p><strong>DOB:</strong> 10/12/2004</p>
+                            <p><strong>Education:</strong> Pursuing BTech</p>
+                            <p><strong>Specialization:</strong> Software Modelling & DevOps</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 mb-4">
+                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body p-5">
+                        <h3 style="color: #1a6fc9; font-weight: 600; margin-bottom: 20px;">About Me</h3>
+                        <p style="line-height: 1.8; color: #555; margin-bottom: 25px;">
+                            I'm S. Khowshikk Sharma, a passionate software engineering student currently pursuing my B.Tech in
+                            Computer Science and Engineering at KL University, specializing in Software Modelling & DevOps. I’ve
+                            actively immersed myself in the IT industry, developing a strong foundation in
+                            software development, data structures, and algorithms. This journey has led me to intermediate-level
+                            expertise in DevOps and software modelling. Along the way, I’ve honed my skills in Java, C, and frontend
+                            technologies like HTML, CSS, and JavaScript. With a deep interest in AI and machine learning
+                            applications in healthcare, I’m committed to creating solutions that improve lives - like this disease
+                            prediction system. Looking ahead, I’m excited to explore cutting-edge technologies and pursue a career
+                            in AI research and development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-8">
+                <div class="card h-100" style="border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="card-body p-5">
+                        <h4 style="color: #1a6fc9; font-weight: 600; margin-bottom: 15px; margin-top: 30px;">Project Case Studies while Building Application</h4>
+
+                        <!-- Case Study 1 -->
+                        <div class="case-study mb-4">
+                            <h5 style="font-weight: 600; color: #333;">System Performance Optimization</h5>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Description:</strong> The system took too long to start because it loaded multiple large CSV files at launch.
+                            </p>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Cause:</strong> Unoptimized file reading in Flask's startup and redundant reloading of static data.
+                            </p>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Solution:</strong> Cached datasets in memory after first load and used lightweight databases (SQLite) for frequent queries.
+                            </p>
+                            <p style="line-height: 1.6; color: #555;">
+                                <strong>Implementation:</strong> Introduced caching mechanisms that required periodic cache refreshes if data updates.
+                            </p>
+                        </div>
+
+                        <!-- Case Study 2 -->
+                        <div class="case-study mb-4">
+                            <h5 style="font-weight: 600; color: #333;">Data Imbalance Issue</h5>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Description:</strong> Rare conditions were often misclassified as common ones.
+                            </p>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Cause:</strong> Imbalanced dataset (e.g., more "Cold" cases than "Typhoid").
+                            </p>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Solution:</strong> Applied class weighting in SVC and augmented rare disease samples.
+                            </p>
+                            <p style="line-height: 1.6; color: #555;">
+                                <strong>Implementation:</strong> Needed ongoing dataset balancing and added a disclaimer for rare conditions.
+                            </p>
+                        </div>
+
+                        <!-- Case Study 3 -->
+                        <div class="case-study">
+                            <h5 style="font-weight: 600; color: #333;">Caching Challenges</h5>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Description:</strong> Users saw outdated results due to aggressive caching.
+                            </p>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Cause:</strong> Flask's static files cached by browsers.
+                            </p>
+                            <p style="line-height: 1.6; color: #555; margin-bottom: 10px;">
+                                <strong>Solution:</strong> Added cache-busting hashes to asset filenames and set proper Cache-Control headers.
+                            </p>
+                            <p style="line-height: 1.6; color: #555;">
+                                <strong>Implementation:</strong> Required build automation for asset versioning.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #1a6fc9, #0d47a1); color: white; padding: 40px 0; margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">HealthCare AI</h5>
+                    <p>Empowering individuals with AI-driven health insights for better decision making and improved wellbeing.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Quick Links</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="/about" style="color: white; text-decoration: none;">About Us</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/blog" style="color: white; text-decoration: none;">Blog</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/contact" style="color: white; text-decoration: none;">Contact</a></li>
+                        <li style="margin-bottom: 10px;"><a href="/developer" style="color: white; text-decoration: none;">Developer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="font-weight: 600; margin-bottom: 20px;">Contact Info</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Near KL University, Vaddeswaram, Guntur - 522302</p>
+                    <p><i class="fas fa-phone-alt me-2"></i> +91 6309876645</p>
+                    <p><i class="fas fa-envelope me-2"></i> sripadakhowshikksharma126@gmail.com</p>
+                </div>
+            </div>
+            <hr style="background-color: rgba(255,255,255,0.1); margin: 10px 0;">
+            <div class="text-center" style="font-size: 0.9rem;">
+                <p>© 2023 HealthCare AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
