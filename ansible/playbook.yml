@@ -1,0 +1,34 @@
+---
+- name: Run basic local tasks
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure Python 3 and pip3 are installed
+      apt:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install pipx (to install Python packages in isolated environments)
+      command: /usr/bin/python3 -m pip install pipx
+      become: yes
+      when: ansible_user == "khowshikkpc"
+
+    - name: Ensure virtualenv is installed
+      command: /usr/bin/python3 -m pip install virtualenv
+      become: yes
+      when: ansible_user == "khowshikkpc"
+
+    - name: Check if the virtual environment exists
+      stat:
+        path: /home/khowshikkpc/healthcaremrs_venv
+      register: venv_stat
+
+    - name: Create a Python virtual environment
+      command: /usr/bin/python3 -m venv /home/khowshikkpc/healthcaremrs_venv
+      when: venv_stat.stat.exists == false
+
+    - name: Install required Python packages in the virtual environment
+      command: /home/khowshikkpc/healthcaremrs_venv/bin/pip install -r /mnt/d/Projects/HealthCareMRS/requirements.txt
+      when: venv_stat.stat.exists == true
