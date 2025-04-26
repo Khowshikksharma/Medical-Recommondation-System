@@ -15,7 +15,7 @@ pipeline {
 
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'khowshikksharma', passwordVariable: '137799@skkS')]) {
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                     sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'
                 }
             }
@@ -40,6 +40,7 @@ pipeline {
         stage('Deploy to Render') {
             steps {
                 script {
+                    // Replace with your actual Render API endpoint, service ID and API Key
                     sh 'curl -X POST https://api.render.com/deploy/srv-xxxxxxxxxxx?key=API_KEY'
                 }
             }
