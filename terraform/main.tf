@@ -1,16 +1,13 @@
-terraform {
-  required_providers {
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.0"
-    }
-  }
+provider "render" {
+  api_key = var.render_api_key
 }
 
-provider "null" {}
-
-resource "null_resource" "init" {
-  provisioner "local-exec" {
-    command = "echo Terraform setup for HealthCareMRS complete."
+resource "render_service" "mrs_app" {
+  name         = "healthcaremrs"
+  service_type = "web_service"
+  docker_image = "docker.io/khowshikksharma/healthcaremrs"
+  branch       = "main"
+  env = {
+    FLASK_APP = "main.py"
   }
 }

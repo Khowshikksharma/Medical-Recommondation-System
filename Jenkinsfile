@@ -13,10 +13,18 @@ pipeline {
             }
         }
 
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                    sh 'docker build -t ${DOCKER_IMAGE}:latest .'
                 }
             }
         }
@@ -24,8 +32,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh 'docker tag ${DOCKER_IMAGE} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest'
-                    sh 'docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest'
+                    sh 'docker push ${DOCKER_IMAGE}:latest'
                 }
             }
         }
@@ -33,8 +40,7 @@ pipeline {
         stage('Deploy to Render') {
             steps {
                 script {
-                    // Deploy to Render API or use their CLI
-                    sh 'render deploy --service healthcaremrs'
+                    sh 'curl -X POST https://api.render.com/deploy/srv-xxxxxxxxxxx?key=API_KEY'
                 }
             }
         }
