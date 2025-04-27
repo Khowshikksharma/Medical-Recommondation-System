@@ -1,0 +1,30 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environments
+venv/
+.env/
+*.env
+
+# Ignore Git files
+.git/
+.gitignore
+
+# Ignore Docker files you don't want inside
+Dockerfile
+docker-compose.yml
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+*.swp
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore tests if they are not needed in production
+tests/

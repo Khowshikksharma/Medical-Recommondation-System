@@ -23,16 +23,22 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and Tag Docker Images') {
             steps {
-                bat 'docker build -t %DOCKER_IMAGE%:latest .'
+                bat '''
+                docker build -t %DOCKER_IMAGE%:latest .
+                docker tag %DOCKER_IMAGE%:latest %DOCKER_IMAGE%:build-%BUILD_NUMBER%
+                '''
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Push Docker Images') {
             steps {
                 retry(3) {
-                    bat 'docker push %DOCKER_IMAGE%:latest'
+                    bat '''
+                    docker push %DOCKER_IMAGE%:latest
+                    docker push %DOCKER_IMAGE%:build-%BUILD_NUMBER%
+                    '''
                 }
             }
         }
