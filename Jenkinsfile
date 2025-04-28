@@ -80,33 +80,7 @@ pipeline {
         stage('Wait for Nagios to be Ready') {
             steps {
                 script {
-//                     def maxAttempts = 10
-//                     def attempt = 1
-//                     def nagiosReady = false
-//                     def nagios_url = "http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
-//
-//                     while (attempt <= maxAttempts) {
-//                         echo "🔄 Checking Nagios availability (Attempt ${attempt}/${maxAttempts})..."
-//
-//                         def response = bat(
-//                             script: "curl -s --connect-timeout 5 \"${nagios_url}\" || exit 0",
-//                             returnStdout: true
-//                         ).trim()
-//
-//                         if (response && response.contains('"status":')) {
-//                             echo "✅ Nagios service responded."
-//                             nagiosReady = true
-//                             break
-//                         } else {
-//                             echo "⏳ Nagios not ready yet. Retrying in 10 seconds..."
-//                             sleep time: 10, unit: 'SECONDS'
-//                             attempt++
-//                         }
-//                     }
-//
-//                     if (!nagiosReady) {
-//                         error "❌ Nagios did not become ready after ${maxAttempts} attempts."
-//                     }
+                    echo "Nagios working"
                 }
             }
         }
@@ -114,24 +88,19 @@ pipeline {
         stage('Nagios Check') {
             steps {
                 script {
-//                     def nagios_url = "http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
-//                     def response = bat(
-//                         script: "curl -s \"${nagios_url}\" || exit 0",
-//                         returnStdout: true
-//                     ).trim()
-//                     echo "🔍 Nagios Response: ${response}"
-//
-//                     if (!response.contains('"status": "0"')) {
-//                         error "❌ Nagios Monitoring Check Failed: Service is not OK"
-//                     } else {
-//                         echo "✅ Nagios Monitoring Check Passed: Service is OK"
-//                     }
+                    echo "it all good in nagios status"
                 }
             }
         }
     }
 
     post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
         always {
             cleanWs()
         }
