@@ -53,6 +53,17 @@ pipeline {
             }
         }
 
+        agent any
+        stages {
+            stage('Cleanup Existing Containers') {
+                steps {
+                    script {
+                        bat 'docker rm -f healthcaremrs-app nagios-monitor || exit 0'
+                    }
+                }
+            }
+        }
+
         stage('Terraform Apply') {
             steps {
                 dir('terraform') {
