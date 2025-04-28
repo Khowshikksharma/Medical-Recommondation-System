@@ -27,13 +27,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %DOCKER_IMAGE%:latest .'
+                bat "docker build -t %DOCKER_IMAGE%:latest ."
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                bat 'docker push %DOCKER_IMAGE%:latest'
+                bat "docker push %DOCKER_IMAGE%:latest"
             }
         }
 
@@ -56,10 +56,7 @@ pipeline {
         stage('Cleanup Existing Containers') {
             steps {
                 script {
-                    bat '''
-                    docker rm -f healthcaremrs-app || exit 0
-                    docker rm -f nagios-monitor || exit 0
-                    '''
+                    bat 'docker rm -f healthcaremrs-app nagios-monitor || exit 0'
                 }
             }
         }
@@ -80,14 +77,47 @@ pipeline {
             }
         }
 
+        stage('Wait for Nagios to be Ready') {
+            steps {
+                script {
+                    def maxAttempts = 10
+                    def attempt = 1
+                    def nagiosReady = false
+                    def nagios_url = "http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
+
+                    while (attempt <= maxAttempts) {
+                        echo "🔄 Checking Nagios availability (Attempt ${attempt}/${maxAttempts})..."
+                        def response = bat(script: "curl -s --connect-timeout 5 \"${nagios_url}\"", returnStdout: true).trim()
+
+                        if (response && response.contains('"status":')) {
+                            echo "✅ Nagios service responded."
+                            nagiosReady = true
+                            break
+                        } else {
+                            echo "⏳ Nagios not ready yet. Retrying in 10 seconds..."
+                            sleep time: 10, unit: 'SECONDS'
+                            attempt++
+                        }
+                    }
+
+                    if (!nagiosReady) {
+                        error "❌ Nagios did not become ready after ${maxAttempts} attempts."
+                    }
+                }
+            }
+        }
+
         stage('Nagios Check') {
             steps {
                 script {
-                    def nagios_url = "http://localhost/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
+                    def nagios_url = "http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
                     def response = bat(script: "curl -s \"${nagios_url}\"", returnStdout: true).trim()
-                    echo "Nagios Response: ${response}"
+                    echo "🔍 Nagios Response: ${response}"
+
                     if (!response.contains('"status": "0"')) {
                         error "❌ Nagios Monitoring Check Failed: Service is not OK"
+                    } else {
+                        echo "✅ Nagios Monitoring Check Passed: Service is OK"
                     }
                 }
             }
