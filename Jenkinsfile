@@ -53,7 +53,6 @@ pipeline {
             }
         }
 
-        agent any
         stages {
             stage('Cleanup Existing Containers') {
                 steps {
