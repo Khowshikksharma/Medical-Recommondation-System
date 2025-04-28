@@ -53,12 +53,13 @@ pipeline {
             }
         }
 
-        stages {
-            stage('Cleanup Existing Containers') {
-                steps {
-                    script {
-                        bat 'docker rm -f healthcaremrs-app nagios-monitor || exit 0'
-                    }
+        stage('Cleanup Existing Containers') {
+            steps {
+                script {
+                    bat '''
+                    docker rm -f healthcaremrs-app || exit 0
+                    docker rm -f nagios-monitor || exit 0
+                    '''
                 }
             }
         }
