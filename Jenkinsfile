@@ -69,21 +69,14 @@ pipeline {
             }
         }
 
-        stage('Nagios Health Check') {
+        stage('Nagios Check') {
             steps {
                 script {
-                    // Perform a Nagios health check using a simple curl or check_nrpe plugin
-                    def nagiosCheck = bat(
-                        script: """
-                        curl -s http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=localhost&servicedescription=${NAGIOS_SERVICE}
-                        """,
-                        returnStatus: true
-                    )
-
-                    if (nagiosCheck != 0) {
-                        error('❌ Nagios Monitoring Check Failed: Service is not OK')
-                    } else {
-                        echo '✅ Nagios Monitoring Check Passed: Service is healthy'
+                    def nagios_url = "http://localhost/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
+                    def response = bat(script: "curl -s \"${nagios_url}\"", returnStdout: true).trim()
+                    echo "Nagios Response: ${response}"
+                    if (!response.contains('"status": "0"')) {
+                        error "❌ Nagios Monitoring Check Failed: Service is not OK"
                     }
                 }
             }
