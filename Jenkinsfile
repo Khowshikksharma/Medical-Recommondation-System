@@ -87,7 +87,11 @@ pipeline {
 
                     while (attempt <= maxAttempts) {
                         echo "🔄 Checking Nagios availability (Attempt ${attempt}/${maxAttempts})..."
-                        def response = bat(script: "curl -s --connect-timeout 5 \"${nagios_url}\"", returnStdout: true).trim()
+
+                        def response = bat(
+                            script: "curl -s --connect-timeout 5 \"${nagios_url}\" || exit 0",
+                            returnStdout: true
+                        ).trim()
 
                         if (response && response.contains('"status":')) {
                             echo "✅ Nagios service responded."
@@ -111,7 +115,10 @@ pipeline {
             steps {
                 script {
                     def nagios_url = "http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=${NAGIOS_HOST}&servicedescription=${NAGIOS_SERVICE}"
-                    def response = bat(script: "curl -s \"${nagios_url}\"", returnStdout: true).trim()
+                    def response = bat(
+                        script: "curl -s \"${nagios_url}\" || exit 0",
+                        returnStdout: true
+                    ).trim()
                     echo "🔍 Nagios Response: ${response}"
 
                     if (!response.contains('"status": "0"')) {
