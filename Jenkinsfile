@@ -23,22 +23,38 @@ pipeline {
             }
         }
 
-        stage('Build and Tag Docker Images') {
+        stage('Build Docker Image') {
             steps {
-                bat '''
-                docker build -t %DOCKER_IMAGE%:latest .
-                docker tag %DOCKER_IMAGE%:latest %DOCKER_IMAGE%:build-%BUILD_NUMBER%
-                '''
+                bat 'docker build -t %DOCKER_IMAGE%:latest .'
             }
         }
 
-        stage('Push Docker Images') {
+        stage('Push Docker Image') {
             steps {
-                retry(3) {
-                    bat '''
-                    docker push %DOCKER_IMAGE%:latest
-                    docker push %DOCKER_IMAGE%:build-%BUILD_NUMBER%
-                    '''
+                bat 'docker push %DOCKER_IMAGE%:latest'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('terraform') {
+                    bat 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                dir('terraform') {
+                    bat 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
@@ -46,7 +62,7 @@ pipeline {
         stage('Deploy to Render') {
             steps {
                 bat '''
-                curl -X POST https://api.render.com/deploy/srv-xxxxxxxxxxx?key=API_KEY
+                curl -X POST https://api.render.com/deploy/srv-xxxxxxxxxxxx?key=YOUR_API_KEY
                 '''
             }
         }

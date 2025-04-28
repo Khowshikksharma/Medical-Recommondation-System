@@ -1,13 +1,24 @@
-provider "render" {
-  api_key = var.render_api_key
+terraform {
+  required_providers {
+    docker = {
+      source = "kreuzwerker/docker"
+      version = "~> 3.0.2"
+    }
+  }
 }
 
-resource "render_service" "mrs_app" {
-  name         = "healthcaremrs"
-  service_type = "web_service"
-  docker_image = "docker.io/khowshikksharma/healthcaremrs"
-  branch       = "main"
-  env = {
-    FLASK_APP = "main.py"
+provider "docker" {}
+
+resource "docker_image" "nginx" {
+  name         = "nginx:latest"
+  keep_locally = false
+}
+
+resource "docker_container" "nginx_server" {
+  image = docker_image.nginx.latest
+  name  = "nginx_server"
+  ports {
+    internal = 80
+    external = 8080
   }
 }
