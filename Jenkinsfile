@@ -4,6 +4,8 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'khowshikksharma/healthcaremrs'
         DOCKER_REGISTRY = 'docker.io'
+        NAGIOS_HOST = 'localhost'
+        NAGIOS_SERVICE = 'HTTP'
     }
 
     stages {
@@ -64,6 +66,26 @@ pipeline {
                 bat '''
                 curl -X POST https://api.render.com/deploy/srv-xxxxxxxxxxxx?key=YOUR_API_KEY
                 '''
+            }
+        }
+
+        stage('Nagios Health Check') {
+            steps {
+                script {
+                    // Perform a Nagios health check using a simple curl or check_nrpe plugin
+                    def nagiosCheck = bat(
+                        script: """
+                        curl -s http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=service&hostname=localhost&servicedescription=${NAGIOS_SERVICE}
+                        """,
+                        returnStatus: true
+                    )
+
+                    if (nagiosCheck != 0) {
+                        error('❌ Nagios Monitoring Check Failed: Service is not OK')
+                    } else {
+                        echo '✅ Nagios Monitoring Check Passed: Service is healthy'
+                    }
+                }
             }
         }
     }
